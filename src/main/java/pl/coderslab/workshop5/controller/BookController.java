@@ -1,12 +1,11 @@
 package pl.coderslab.workshop5.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.workshop5.model.Book;
 import pl.coderslab.workshop5.service.MemoryBookService;
+
+import java.util.List;
 
 // controller restowy zawsze zwraca ciąg znaków który jest jsonem
 
@@ -39,5 +38,17 @@ public class BookController {
     // converter nie wie jak przerobić Booka na Stringa -> musimy napisać Converter
     // ale jest biblioteka która zrobi to za nas :) zad4 !!!! JACKSON - potężna biblioteka :D
 
+
+   //Pobieranie listy danych - listy książek
+    @GetMapping("") //na adres w kontrolerze
+    public List<Book> getAllBooks(){
+        return this.mbs.getList();
+    }
+
+    //pobranie książki o danym id
+    @GetMapping("/{id}")
+    public Book getBook(@PathVariable long id){
+        return this.mbs.getBookById(id);
+    }
 }
 
